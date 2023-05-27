@@ -10,12 +10,8 @@ def get_xlsx_directory ():
 
 
 def xlsx_reading(xlsx_directory): #функция создает датафрейм из файла xlsx
-    df = pd.read_excel(xlsx_directory[0],header=0)
+    df = pd.read_excel(xlsx_directory[0])
     return df
 
-# def converting_tables(df):
-path =get_xlsx_directory()
-df = xlsx_reading(path)
-df.
-    
+
 
