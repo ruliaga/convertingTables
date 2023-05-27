@@ -13,5 +13,16 @@ def xlsx_reading(xlsx_directory): #функция создает датафре�
     df = pd.read_excel(xlsx_directory[0])
     return df
 
+def create_xlsx(df):
+    df.to_excel('1.xlsx')
+
+def reindex_dataframe(df):
+    df = df.reset_index(drop=True)
+    return df
+
+def sort_dataframe(df): # сортировка по трем столбцам
+    df = df.sort_values(['Ссылка.Номер', 'Ссылка.Дата','Номер операции'])
+    return df
+
 
 
