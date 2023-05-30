@@ -19,10 +19,8 @@ def add_new_columns(df):
     
 
 def add_1234(df):
-   
     df.insert(20, '1234', 0)
     for i in range(0,df.shape[0]-1):
-
         if not pd.isnull(df['Дата операции'].values[i]) and pd.isnull(df['Дата операции'].values[i+1]):
             df['1234'].values[i] = 1    
         elif int(df['1234'].values[i-1])==1 and pd.isnull(df['Дата операции'].values[i]):
@@ -36,6 +34,17 @@ def add_1234(df):
         else:
             df['1234'].values[i] = 0
     return df
+
+def add_1(df):
+    df.insert(21, '1', 0)
+    for i in range(0,df.shape[0]-4):
+        if df['1234'].values[i+5] == 4 or df['1234'].values[i+4] == 4 or df['1234'].values[i+3] == 4 or df['1234'].values[i+2] == 4 or df['1234'].values[i+1] == 4 or df['1234'].values[i] == 4:
+            df['1'].values[i]=1
+        else:
+            df['1'].values[i]=0
+    return df 
+ 
+
     
 
 

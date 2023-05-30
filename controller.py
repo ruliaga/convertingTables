@@ -14,7 +14,7 @@ def converting_table(df):
     df = model.reindex_dataframe(df)
     df = converting.add_new_columns(df)
     df = converting.add_1234(df)
-
+    df = converting.add_1(df)
     return df
 
 def creating_new_file(df):
