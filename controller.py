@@ -15,6 +15,7 @@ def converting_table(df):
     df = converting.add_new_columns(df)
     df = converting.add_1234(df)
     df = converting.add_1(df)
+    df = converting.add_repeat_column(df)
     return df
 
 def creating_new_file(df):

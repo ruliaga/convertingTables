@@ -37,11 +37,20 @@ def add_1234(df):
 
 def add_1(df):
     df.insert(21, '1', 0)
-    for i in range(0,df.shape[0]-4):
+    for i in range(0,df.shape[0]-6):
         if df['1234'].values[i+5] == 4 or df['1234'].values[i+4] == 4 or df['1234'].values[i+3] == 4 or df['1234'].values[i+2] == 4 or df['1234'].values[i+1] == 4 or df['1234'].values[i] == 4:
             df['1'].values[i]=1
         else:
             df['1'].values[i]=0
+    return df 
+
+def add_repeat_column(df):
+    df.insert(22, 'Повторение', 0)
+    for i in range(0,df.shape[0]-1):
+        if df['Ссылка.Номер'].values[i] == df['Ссылка.Номер'].values[i-1] and df['Номер операции'].values[i] == df['Номер операции'].values[i-1] and df['Рабочий центр'].values[i] == df['Рабочий центр'].values[i-1]:
+            df['Повторение'].values[i]=1
+        else:
+            df['Повторение'].values[i]=0
     return df 
  
 
