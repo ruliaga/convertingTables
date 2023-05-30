@@ -13,6 +13,8 @@ def converting_table(df):
     df = model.sort_dataframe(df)
     df = model.reindex_dataframe(df)
     df = converting.add_new_columns(df)
+    df = converting.add_1234(df)
+
     return df
 
 def creating_new_file(df):
