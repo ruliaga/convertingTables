@@ -18,7 +18,7 @@ def add_new_columns(df):
     return df
     
 
-def add_1234(df):
+def add_1234_column(df):
     df.insert(20, '1234', 0)
     for i in range(0,df.shape[0]-1):
         if not pd.isnull(df['Дата операции'].values[i]) and pd.isnull(df['Дата операции'].values[i+1]):
@@ -35,7 +35,7 @@ def add_1234(df):
             df['1234'].values[i] = 0
     return df
 
-def add_1(df):
+def add_1_column(df):
     df.insert(21, '1', 0)
     for i in range(0,df.shape[0]-6):
         if df['1234'].values[i+5] == 4 or df['1234'].values[i+4] == 4 or df['1234'].values[i+3] == 4 or df['1234'].values[i+2] == 4 or df['1234'].values[i+1] == 4 or df['1234'].values[i] == 4:
@@ -53,9 +53,43 @@ def add_repeat_column(df):
             df['Повторение'].values[i]=0
     return df 
  
+def add_sumOfOperation_column(df):
+    df.insert(23, 'Сумма операции', float(0))
+    for i in range(0,df.shape[0]-1):
+        if df['Повторение'].values[i] == 0:
+            df['Сумма операции'].values[i] = df['Количество предъявленных'].values[i]
+        else:
+            df['Сумма операции'].values[i] = float(df['Сумма операции'].values[i-1]) + df['Количество предъявленных'].values[i]
+    return df 
 
+def add_percentOfReady_column(df):
+    df.insert(24, '% готовности', round(df['Сумма операции']*100/df['Ссылка.Количество'],2))
     
+    return df 
 
+def add_statusOfReady_column(df):
+    df.insert(25, 'Статус готовности', '')
+    for i in range(0,df.shape[0]-2):
+        if  (df['% готовности'].values[i] > 0 and df['% готовности'].values[i] < 92 and df['1234'].values[i] ==1 and df['1234'].values[i+1] == 2) or df['1234'].values[i] == 2 or df['1234'].values[i] == 3 or df['1234'].values[i] == 4:
+            df['Статус готовности'].values[i] = 'Не готово'
+        else:
+            df['Статус готовности'].values[i] = ''
+    return df 
 
+def add_mustToDo_column(df):
+    df.insert(26, 'Осталось сделать', df['Ссылка.Количество'] - df['Сумма операции'])
+    return df 
 
+def add_trudoemkost2_column(df):
+    df.insert(27, 'Трудоемкость2', 0.0)
+    for i in range(0,df.shape[0]-1):
+        if df['Осталось сделать'].values[i]>0:
+            df['Трудоемкость2'].values[i] = df['Осталось сделать'].values[i]*df['Технологическая операция.Норма времени (час)'].values[i]*df['Увеличение норм'].values[i]
+        else:
+            df['Трудоемкость2'].values[i] = 0.0
+    return df 
+
+def add_timeOf_operation_column(df):
+    df.insert(28, 'Время операции', df['Трудоемкость2']/24)
+    return df 
 
