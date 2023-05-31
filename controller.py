@@ -24,6 +24,10 @@ def converting_table(df):
     #пересмотреть значение столбца "Осталось сделать"
     df = converting.add_trudoemkost2_column(df)
     df = converting.add_timeOf_operation_column(df)
+    df = converting.add_nowOperation_column(df)
+    df = converting.add_backOperation_column(df)
+    df = converting.add_nextOperation_column(df)
+    df = converting.add_key_column(df)    
     return df
 
 def creating_new_file(df):

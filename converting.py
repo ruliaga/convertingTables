@@ -93,3 +93,42 @@ def add_timeOf_operation_column(df):
     df.insert(28, 'Время операции', df['Трудоемкость2']/24)
     return df 
 
+def add_nowOperation_column(df):
+    df.insert(29, 'Текущая операция', df['Номер + операция'])
+    return df 
+
+def add_backOperation_column(df):
+    df.insert(30, 'Предыдущая операция', '')
+    for i in range(0,df.shape[0]-1):
+        if df['Текущая операция'].values[i]!=df['Текущая операция'].values[i-1]:
+            df['Предыдущая операция'].values[i]=df['Текущая операция'].values[i-1]
+        elif df['Текущая операция'].values[i]!=df['Текущая операция'].values[i-2]:
+            df['Предыдущая операция'].values[i]=df['Текущая операция'].values[i-2]
+        elif df['Текущая операция'].values[i]!=df['Текущая операция'].values[i-3]:
+            df['Предыдущая операция'].values[i]=df['Текущая операция'].values[i-3]
+        elif df['Текущая операция'].values[i]!=df['Текущая операция'].values[i-4]:
+            df['Предыдущая операция'].values[i]=df['Текущая операция'].values[i-4]
+        elif df['Текущая операция'].values[i]!=df['Текущая операция'].values[i-5]:
+            df['Предыдущая операция'].values[i]=df['Текущая операция'].values[i-5]
+        elif df['Текущая операция'].values[i]!=df['Текущая операция'].values[i-6]:
+            df['Предыдущая операция'].values[i]=df['Текущая операция'].values[i-6]
+        elif df['Текущая операция'].values[i]!=df['Текущая операция'].values[i-7]:
+            df['Предыдущая операция'].values[i]=df['Текущая операция'].values[i-7]
+        else:
+            df['Предыдущая операция'].values[i]=df['Текущая операция'].values[i-8]
+    return df 
+
+def add_nextOperation_column(df):
+    df.insert(31, 'Следущая операция', '')
+    for i in range(0,df.shape[0]-1):
+        if df['Ссылка.Номер'].values[i] == df['Ссылка.Номер'].values[i+1]:
+            df['Следущая операция'].values[i] = df['Текущая операция'].values[i+1]
+        else:
+            df['Следущая операция'].values[i] = 'Выполнено'
+    return df
+
+def add_key_column(df):
+    df.insert(32, 'Ключ', '')
+    for i in range(0,df.shape[0]-1):
+        df['Ключ'].values[i] = str(df['МПК + продукция'].values[i]) + " " + str(df['Номер + операция'].values[i])
+    return df
