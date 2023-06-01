@@ -28,6 +28,7 @@ def converting_table(df):
     df = converting.add_backOperation_column(df)
     df = converting.add_nextOperation_column(df)
     df = converting.add_key_column(df)    
+    df = converting.categories(df)
     return df
 
 def creating_new_file(df):
