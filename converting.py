@@ -56,10 +56,13 @@ def add_repeat_column(df):
 def add_sumOfOperation_column(df):
     df.insert(23, 'Сумма операции', float(0))
     for i in range(0,df.shape[0]-1):
+      if not pd.isnull(df['Количество предъявленных'].values[i]):
         if df['Повторение'].values[i] == 0:
             df['Сумма операции'].values[i] = df['Количество предъявленных'].values[i]
         else:
             df['Сумма операции'].values[i] = float(df['Сумма операции'].values[i-1]) + df['Количество предъявленных'].values[i]
+      else:
+          df['Сумма операции'].values[i] = 0
     return df 
 
 def add_percentOfReady_column(df):
